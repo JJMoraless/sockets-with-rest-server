@@ -3,10 +3,10 @@ import { WebSocket, WebSocketServer } from 'ws'
 
 interface Options {
   server: Server
-  path?: string // ws
+  path?: string // path web sockets
 }
 
-// Singleton websocket service
+// *Singleton websocket service
 export class WssService {
   private static _instance: WssService
   private wss: WebSocketServer
@@ -28,6 +28,7 @@ export class WssService {
     if (!WssService._instance) {
       throw new Error('WWS not created')
     }
+
     return WssService._instance
   }
 
@@ -35,6 +36,12 @@ export class WssService {
     this.wss.on('connection', (ws: WebSocket) => {
       console.log('client connected')
       ws.on('close', () => console.log('client disconnected'))
+    })
+  }
+
+  public sendMessage(type: string, payload: Object) {
+    this.wss.clients.forEach((client) => {
+      client.send(JSON.stringify({ type, payload }))
     })
   }
 }
