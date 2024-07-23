@@ -12,8 +12,8 @@ export class TicketController {
   }
 
   public getLasTicketNumber = async (req: Request, res: Response) => {
-    const lasTickerNumber = this.ticketService.getLastTicketNumber()
-    res.json({ number: lasTickerNumber })
+    const lasTicketNumber = this.ticketService.getLastTicketNumber()
+    res.json({ number: lasTicketNumber })
   }
 
   public pendingTickets = async (req: Request, res: Response) => {
